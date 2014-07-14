@@ -1,1 +1,1 @@
-This is a module for Galaxy that allows to run Discrover
+This is a module for [Galaxy](https://usegalaxy.org/) that allows to run [Discrover](https://github.com/maaskola/discrover).
