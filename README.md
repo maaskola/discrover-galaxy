@@ -8,7 +8,12 @@ How to use it
 2. Clone this repository into the main directory of your galaxy instance: ```cd $GALAXY_PATH && git clone git@github.com:maaskola/discrover-galaxy.git```
 3. Add a symbolic link: ```cd tools && ln -s ../discrover-galaxy/tools/discrover discrover```
 4. Modify ```tool_conf.xml``` in the main directory to include a section for this module.
-  Find the section with 'id' equal to 'motifs' (around line 132) and add a line ```<tool file="discrover/discrover.xml" />``` into it, such that it looks something like this:
+  Find the section with 'id' equal to 'motifs' (around line 132) and add a line
+
+  ```xml
+  <tool file="discrover/discrover.xml" />
+  ```
+  into it, such that it looks something like this:
 
     ```xml
     <section id="motifs" name="Motif Tools">
