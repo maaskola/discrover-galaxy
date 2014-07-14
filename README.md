@@ -20,7 +20,7 @@ In the instructions below, we designate two paths by shell variables: ```$P``` s
     cd $GALAXY_PATH/tools
     ln -s $P/discrover-galaxy/tools/discrover discrover
     ```
-4. Modify ```tool_conf.xml``` in the main directory to include a section for this module.
+4. Modify ```tool_conf.xml``` in the main directory of the Galaxy instance to include a section for this module.
   Find the section with 'id' equal to 'motifs' (around line 132) and add a line
 
     ```xml
