@@ -1,0 +1,126 @@
+  <tool id="discrover" name="Discrover">
+    <description>Discriminative discovery of HMM motifs</description>
+    <command>discrover
+#silent contrasts = []
+#silent theseeds = ""
+#for $i, $c in enumerate( $options.contrast )
+  #silent contrast = "contrast%i" % i
+  #silent contrasts.append(contrast)
+  #if $options.options_select == "simple":
+    motif:$contrast:$c.simple_signal
+    #if $c.simple_control.choice == "file":
+      control:$contrast:"$c.simple_control.file"
+    #end if
+  #else
+    #for $j, $s in enumerate( $c.set )
+      #if s["is_control"] then "control" else "motif"#:$contrast:$s.file
+    #end for
+  #end if
+#end for
+-m motif:${length}x${nseeds}
+--score motif:${"+".join(contrasts)}:${options.score}
+-o ${txt_outfile.files_path}
+#if $strandedness == "dna":
+  -r
+#end if
+--multiple
+--compress none
+> ${txt_outfile}
+2> ${time_outfile}
+&amp;&amp; cp ${txt_outfile.files_path}*.accepted.hmm ${hmm_outfile}
+&amp;&amp; cp ${txt_outfile.files_path}*.accepted.summary ${summary_outfile}
+&amp;&amp; cp ${txt_outfile.files_path}*.accepted.table ${table_outfile}
+&amp;&amp; cp ${txt_outfile.files_path}*.accepted.viterbi ${viterbi_outfile}
+    </command>
+    <inputs>
+      <param name="length" type="text" value="8" label="Motif lengths">
+        <validator type="regex" message="Comma-separated list of one or more length ranges, e.g. '8' or '5,8-9'">^(\d+(-\d+)?(,\d+(-\d+)?)*)+$</validator>
+      </param>
+
+      <param name="nseeds" type="integer" value="1" label="Number of seeds" help="For each length, the best N seeds will be found and a HMM will be trained for each."/>
+      <!-- <param name="nseeds" type="integer" value="1" label="Number of seeds" help="When more than one seed is used, getting the output currently fails."/> -->
+
+      <param name="strandedness" type="select" label="Strandedness">
+        <option value="rna" selected="true">RNA - ignore reverse complementary strand</option>
+        <option value="dna">DNA - include reverse complementary strand</option>
+      </param>
+
+
+      <conditional name="options">
+        <param name="options_select" type="select" label="Options" >
+          <option value="simple" selected="true">simple</option>
+          <option value="advanced">advanced</option>
+        </param>
+        <when value="simple">
+          <param name="score" type="hidden" value="mico"/>
+          <!-- <param name="multimode" type="hidden" value="true"/> -->
+          <repeat name="contrast" min="1" title="Contrast">
+            <param name="simple_signal" type="data" format="fasta" label="Signal sequences (FASTA)"/>
+            <conditional name="simple_control">
+              <param name="choice" type="select" label="Source for control sequences" >
+                <option value="shuffle" selected="true">shuffle the signal sequences</option>
+                <option value="file">load from file</option>
+              </param>
+              <when value="shuffle"/>
+              <when value="file">
+                <param name="file" type="data" format="fasta" label="Control sequences (FASTA)"/>
+              </when>
+            </conditional>
+          </repeat>
+        </when>
+
+        <when value="advanced">
+          <repeat name="contrast" min="1" title="Contrast">
+            <repeat name="set" min="2" title="Sequence set">
+              <param name="file" type="data" format="fasta" label="Sequence file (FASTA)"/>
+              <param name="shuffle" type="boolean" checked="false" label="Shuffle these sequences"/>
+              <param name="is_control" type="boolean" checked="false" label="Treat as control sequences" help="Sequences selected as control are not used for learning of context parameters (background emissions and motif priors)."/>
+            </repeat>
+          </repeat>
+          <param name="score" type="select" label="Score" >
+            <option value="mico" selected="true">MICO</option>
+            <option value="mmie">MMIE</option>
+            <option value="mcc">MCC</option>
+            <option value="dlogl">DLOGL</option>
+            <option value="dfreq">DFREQ</option>
+            <option value="bw">Baum-Welch</option>
+          </param>
+          <!-- <param name="multimode" type="boolean" label="Multiple motif mode" checked="true" hint="For this work you must specify multiple lengths and/or more than one seed!"/> -->
+        </when>
+      </conditional>
+
+    </inputs>
+    <outputs>
+      <data format="txt" name="txt_outfile" label="${tool.name} on ${on_string} (Progress information)"/>
+      <data format="txt" name="time_outfile" label="${tool.name} on ${on_string} (Runtime information)"/>
+      <data format="txt" name="hmm_outfile" label="${tool.name} on ${on_string} (HMM motif)"/>
+      <data format="txt" name="summary_outfile" label="${tool.name} on ${on_string} (Summary)"/>
+      <data format="tabular" name="table_outfile" label="${tool.name} on ${on_string} (Occurrence table)"/>
+      <data format="txt" name="viterbi_outfile" label="${tool.name} on ${on_string} (Viterbi decoding)"/>
+    </outputs>
+    <help>
+
+      **Discrover**
+
+      https://github.com/maaskola/discrover
+
+      *What it does*
+
+      The input to Discrover is one or more sets of nucleic acid sequences. The program uses various discriminative objective functions to determine significance of each motif found in the postive set as compared with its representation in the negative set.
+
+      .. class:: infomark
+
+      **To cite Discrover:**
+      Jonas Maaskola and Nikolaus Rajewsky. *Binding site discovery from nucleic acid sequences by discriminative learning of hidden Markov models*, In preparation
+
+      *Objective functions*
+
+      * MICO: Mutual information of condition and motif occurrence
+      * MMIE: Maximum mutual information estimation
+      * MCC: Matthews' correlation coefficient (only binary contrasts)
+      * DLOGL: Difference of log likelihood (only binary contrasts)
+      * DFREQ: Difference of occurrence frequency (only binary contrasts)
+      * Baum-Welch: Likelihood maximization (non-discriminative objective function)
+
+    </help>
+  </tool>
