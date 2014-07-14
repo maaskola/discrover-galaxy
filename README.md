@@ -14,4 +14,4 @@ How to use it
     <tool file="meme/fimo.xml" />
     <tool file="discrover/discrover.xml" />
   </section>```
-5. Run your Galaxy instance: ```./run.sh```. The module is avaiable in the left side pane under the section 'Motif tools'.
+5. Start your Galaxy instance by executing ```./run.sh``` from the main directory of the Galaxy instance. The module is avaiable in the left side pane under the section 'Motif tools'.
