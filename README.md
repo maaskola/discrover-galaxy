@@ -37,4 +37,4 @@ In the instructions below, we designate two paths by shell variables: ```$P``` s
     </section>
     ```
 
-5. Start your Galaxy instance by executing ```cd $GALAXY_PATH && ./run.sh```. Fire up a web browser and go to http://localhost:8080. The Discrover module is available in the left side pane under the section 'Motif tools'.
+5. Start your Galaxy instance by executing ```cd $GALAXY_PATH && ./run.sh```. Fire up a web browser and go to http://localhost:8080. The Discrover module is available in the left-side pane under the section 'Motif Tools'.
