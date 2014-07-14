@@ -11,8 +11,9 @@ How to use it
   Find the section with 'id' equal to 'motifs' (around line 132) and add a line
 
     ```xml
-    <tool file="discrover/discrover.xml" />
+      <tool file="discrover/discrover.xml" />
     ```
+
   into it, such that it looks something like this:
 
     ```xml
@@ -22,4 +23,5 @@ How to use it
       <tool file="discrover/discrover.xml" />
     </section>
     ```
+
 5. Start your Galaxy instance by executing ```./run.sh``` from the main directory of the Galaxy instance. The module is avaiable in the left side pane under the section 'Motif tools'.
