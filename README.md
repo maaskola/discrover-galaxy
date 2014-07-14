@@ -10,9 +10,9 @@ How to use it
 4. Modify ```tool_conf.xml``` in the main directory to include a section for this module.
   Find the section with 'id' equal to 'motifs' (around line 132) and add a line
 
-  ```xml
-  <tool file="discrover/discrover.xml" />
-  ```
+    ```xml
+    <tool file="discrover/discrover.xml" />
+    ```
   into it, such that it looks something like this:
 
     ```xml
