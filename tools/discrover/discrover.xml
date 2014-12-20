@@ -23,6 +23,9 @@
 #if $strandedness == "dna":
   -r
 #end if
+#if $random_salt_choice.options_select == "specify"
+  --salt $random_salt_choice.random_salt
+#end if
 --multiple
 --compress none
 > ${txt_outfile}
@@ -86,6 +89,17 @@
             <option value="bw">Baum-Welch</option>
           </param>
           <!-- <param name="multimode" type="boolean" label="Multiple motif mode" checked="true" hint="For this work you must specify multiple lengths and/or more than one seed!"/> -->
+        </when>
+      </conditional>
+
+      <conditional name="random_salt_choice">
+        <param name="options_select" type="select" label="Random number generation" >
+          <option value="random" selected="true">random</option>
+          <option value="specify">specify</option>
+        </param>
+        <when value="random"/>
+        <when value="specify">
+          <param name="random_salt" type="integer" value="1" label="Salt for random number generation" help="You can use this for reproducible random number generation. This influences e.g. the generation of sequences shuffles (which can be used as control)."/>
         </when>
       </conditional>
 
