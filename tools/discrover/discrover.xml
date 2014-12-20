@@ -99,7 +99,7 @@
         </param>
         <when value="random"/>
         <when value="specify">
-          <param name="random_salt" type="integer" value="1" label="Salt for random number generation" help="You can use this for reproducible random number generation. This influences e.g. the generation of sequences shuffles (which can be used as control)."/>
+          <param name="random_salt" type="integer" value="1" label="Salt for random number generation" help="You can use this for reproducible random number generation. This influences e.g. the generation of sequence shuffles (which can be used as control)."/>
         </when>
       </conditional>
 
