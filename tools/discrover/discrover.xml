@@ -111,7 +111,9 @@
       .. class:: infomark
 
       **To cite Discrover:**
-      Jonas Maaskola and Nikolaus Rajewsky. *Binding site discovery from nucleic acid sequences by discriminative learning of hidden Markov models*, In preparation
+      Jonas Maaskola and Nikolaus Rajewsky.
+      *Binding site discovery from nucleic acid sequences by discriminative learning of hidden Markov models*.
+      Nucleic Acid Research, 42(21):12995-13011, Dec 2014. doi:10.1093/nar/gku1083
 
       *Objective functions*
 
