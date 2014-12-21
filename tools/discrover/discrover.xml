@@ -26,7 +26,7 @@
 #end if
 --score motif:${"+".join(contrasts)}:${options.score}
 -o ${txt_outfile.files_path}
-#if $strandedness == "dna"
+#if str($strandedness) == "DNA"
   -r
 #end if
 #if $rng.choice== "specify"
@@ -61,10 +61,9 @@
       </conditional>
 
       <param name="strandedness" type="select" label="Strandedness">
-        <option value="rna" selected="true">RNA - ignore reverse complementary strand</option>
-        <option value="dna">DNA - include reverse complementary strand</option>
+        <option value="RNA" selected="true">RNA - ignore reverse complementary strand</option>
+        <option value="DNA">DNA - include reverse complementary strand</option>
       </param>
-
 
       <conditional name="options">
         <param name="choice" type="select" label="Options" >
