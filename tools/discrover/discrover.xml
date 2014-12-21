@@ -52,7 +52,7 @@
             <validator type="regex" message="Comma-separated list of one or more length ranges, e.g. '8' or '5,8-9'">^(\d+(-\d+)?(,\d+(-\d+)?)*)+$</validator>
           </param>
 
-          <param name="nseeds" type="integer" value="1" label="Number of seeds" help="For each length, the best N seeds will be found and a HMM will be trained for each."/>
+          <param name="nseeds" type="integer" value="1" min="1" label="Number of seeds" help="For each length, the best N seeds will be found and a HMM will be trained for each."/>
           <!-- <param name="nseeds" type="integer" value="1" label="Number of seeds" help="When more than one seed is used, getting the output currently fails."/> -->
         </when>
         <when value="iupac">
@@ -115,7 +115,7 @@
         </param>
         <when value="random"/>
         <when value="specify">
-          <param name="salt" type="integer" value="1" label="Salt for random number generation" help="You can use this for reproducible random number generation. This influences e.g. the generation of sequence shuffles (which can be used as control)."/>
+          <param name="salt" type="integer" value="1" min="0" label="Salt for random number generation" help="You can use this for reproducible random number generation. This influences e.g. the generation of sequence shuffles (which can be used as control)."/>
         </when>
       </conditional>
 
