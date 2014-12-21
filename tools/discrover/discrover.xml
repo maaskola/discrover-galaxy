@@ -112,7 +112,7 @@
       <conditional name="rng">
         <param name="choice" type="select" label="Random number generation" >
           <option value="random" selected="true">random</option>
-          <option value="specify">specify</option>
+          <option value="specify">specify salt</option>
         </param>
         <when value="random"/>
         <when value="specify">
