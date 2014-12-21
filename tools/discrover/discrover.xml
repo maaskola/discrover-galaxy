@@ -20,6 +20,7 @@
 #silent output_stem = $txt_outfile.files_path + "*"
 #if $motif.choice == "plasma"
   -m motif:${motif.length}x${motif.nseeds}
+  --wiggle ${motif.wiggle}
   #silent output_stem = output_stem + ".accepted"
 #else
   -m motif:${motif.iupac_string}
@@ -53,7 +54,7 @@
           </param>
 
           <param name="nseeds" type="integer" value="1" min="1" label="Number of seeds" help="For each length, the best N seeds will be found and a HMM will be trained for each."/>
-          <!-- <param name="nseeds" type="integer" value="1" label="Number of seeds" help="When more than one seed is used, getting the output currently fails."/> -->
+          <param name="wiggle" type="integer" value="0" min="0" label="Wiggle positions" help="For each found seed, consider variant seeds shifted up to this many positions up- and down-stream."/>
         </when>
         <when value="iupac">
           <param name="iupac_string" type="text" label="IUPAC motif" help="Specify a motif using the IUPAC code for nucleic acids: A, C, G, T, U, M=AC, R=AG, W=AT, S=CG, Y=CT, K=GT, V=ACG, H=ACT, D=AGT, B=CGT, N=ACGT."/>
