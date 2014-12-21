@@ -17,7 +17,13 @@
     #end for
   #end if
 #end for
--m motif:${length}x${nseeds}
+#silent output_stem = $txt_outfile.files_path + "*"
+#if $motif.choice == "plasma"
+  -m motif:${motif.length}x${motif.nseeds}
+  #silent output_stem = output_stem + ".accepted"
+#else
+  -m motif:${motif.iupac_string}
+#end if
 --score motif:${"+".join(contrasts)}:${options.score}
 -o ${txt_outfile.files_path}
 #if $strandedness == "dna":
@@ -30,18 +36,29 @@
 --compress none
 > ${txt_outfile}
 2> ${time_outfile}
-&amp;&amp; cp ${txt_outfile.files_path}*.accepted.hmm ${hmm_outfile}
-&amp;&amp; cp ${txt_outfile.files_path}*.accepted.summary ${summary_outfile}
-&amp;&amp; cp ${txt_outfile.files_path}*.accepted.table ${table_outfile}
-&amp;&amp; cp ${txt_outfile.files_path}*.accepted.viterbi ${viterbi_outfile}
+&amp;&amp; cp ${output_stem}.hmm ${hmm_outfile}
+&amp;&amp; cp ${output_stem}.summary ${summary_outfile}
+&amp;&amp; cp ${output_stem}.table ${table_outfile}
+&amp;&amp; cp ${output_stem}.viterbi ${viterbi_outfile}
     </command>
     <inputs>
-      <param name="length" type="text" value="8" label="Motif lengths">
-        <validator type="regex" message="Comma-separated list of one or more length ranges, e.g. '8' or '5,8-9'">^(\d+(-\d+)?(,\d+(-\d+)?)*)+$</validator>
-      </param>
+      <conditional name="motif">
+        <param name="choice" type="select" label="Motif">
+          <option value="plasma" selected="true">Find automatically using Plasma</option>
+          <option value="iupac">Specify IUPAC motif</option>
+        </param>
+        <when value="plasma">
+          <param name="length" type="text" value="8" label="Motif lengths">
+            <validator type="regex" message="Comma-separated list of one or more length ranges, e.g. '8' or '5,8-9'">^(\d+(-\d+)?(,\d+(-\d+)?)*)+$</validator>
+          </param>
 
-      <param name="nseeds" type="integer" value="1" label="Number of seeds" help="For each length, the best N seeds will be found and a HMM will be trained for each."/>
-      <!-- <param name="nseeds" type="integer" value="1" label="Number of seeds" help="When more than one seed is used, getting the output currently fails."/> -->
+          <param name="nseeds" type="integer" value="1" label="Number of seeds" help="For each length, the best N seeds will be found and a HMM will be trained for each."/>
+          <!-- <param name="nseeds" type="integer" value="1" label="Number of seeds" help="When more than one seed is used, getting the output currently fails."/> -->
+        </when>
+        <when value="iupac">
+          <param name="iupac_string" type="text" label="IUPAC motif" help="Specify a motif using the IUPAC code for nucleic acids: A, C, G, T, U, M=AC, R=AG, W=AT, S=CG, Y=CT, K=GT, V=ACG, H=ACT, D=AGT, B=CGT, N=ACGT."/>
+        </when>
+      </conditional>
 
       <param name="strandedness" type="select" label="Strandedness">
         <option value="rna" selected="true">RNA - ignore reverse complementary strand</option>
