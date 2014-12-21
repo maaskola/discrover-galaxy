@@ -29,7 +29,7 @@
 #if str($strandedness) == "DNA"
   -r
 #end if
-#if $rng.choice== "specify"
+#if $rng.choice == "specify"
   --salt $rng.salt
 #end if
 --multiple
