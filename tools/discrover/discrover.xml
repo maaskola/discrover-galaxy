@@ -44,7 +44,7 @@
     </command>
     <inputs>
       <conditional name="motif">
-        <param name="motif_choice" type="select" label="Motif">
+        <param name="motif_choice" type="select" label="Seeds" help="You can either use Plasma to automatically discover seeds or manually specify a IUPAC regular expression as seed.">
           <option value="plasma" selected="true">Find automatically using Plasma</option>
           <option value="iupac">Specify IUPAC motif</option>
         </param>
@@ -74,7 +74,7 @@
         <when value="simple">
           <param name="score" type="hidden" value="mico"/>
           <!-- <param name="multimode" type="hidden" value="true"/> -->
-          <repeat name="contrast" min="1" title="Contrast">
+          <repeat name="contrast" min="1" title="Contrast" help="You can specify one or more contrasts for which to find discriminative motifs.">
             <param name="simple_signal" type="data" format="fasta" label="Signal sequences (FASTA)"/>
             <conditional name="simple_control">
               <param name="control_choice" type="select" label="Source for control sequences" >
@@ -90,7 +90,7 @@
         </when>
 
         <when value="advanced">
-          <repeat name="contrast" min="1" title="Contrast">
+          <repeat name="contrast" min="1" title="Contrast" help="You can specify one or more contrasts for which to find discriminative motifs.">
             <repeat name="set" min="2" title="Sequence set">
               <param name="file" type="data" format="fasta" label="Sequence file (FASTA)"/>
               <param name="shuffle" type="boolean" checked="false" label="Shuffle these sequences"/>
