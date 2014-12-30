@@ -110,7 +110,7 @@
         </conditional>
 
         <conditional name="rng">
-            <param name="rng_choice" type="select" label="Random number generation" >
+            <param name="rng_choice" type="select" label="Random number generation">
                 <option value="random" selected="true">random</option>
                 <option value="specify">specify salt</option>
             </param>
@@ -121,6 +121,7 @@
         </conditional>
 
     </inputs>
+
     <outputs>
         <data format="txt" name="summary_outfile" label="${tool.name} on ${on_string} (Summary)"/>
         <data format="txt" name="hmm_outfile" label="${tool.name} on ${on_string} (HMM motif)"/>
@@ -155,5 +156,5 @@
       * DFREQ: Difference of occurrence frequency (only binary contrasts)
       * Baum-Welch: Likelihood maximization (non-discriminative objective function)
 
-  </help>
-  </tool>
+    </help>
+</tool>
