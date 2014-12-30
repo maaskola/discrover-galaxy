@@ -6,10 +6,10 @@
 #for $i, $c in enumerate( $options.contrast )
   #silent contrast = "contrast%i" % i
   #silent contrasts.append(contrast)
-  #if $options.choice == "simple"
+  #if $options.options_choice == "simple"
     motif:$contrast:$c.simple_signal
-    #if $c.simple_control.choice == "file"
-      control:$contrast:"$c.simple_control.file"
+    #if $c.simple_control.control_choice == "file"
+      control:$contrast:"$c.simple_control.simple_control_file"
     #end if
   #else
     #for $j, $s in enumerate( $c.set )
@@ -18,7 +18,7 @@
   #end if
 #end for
 #silent output_stem = $txt_outfile.files_path + "*"
-#if $motif.choice == "plasma"
+#if $motif.motif_choice == "plasma"
   -m motif:${motif.length}x${motif.nseeds}
   --wiggle ${motif.wiggle}
   #silent output_stem = output_stem + ".accepted"
@@ -30,7 +30,7 @@
 #if str($strandedness) == "DNA"
   -r
 #end if
-#if $rng.choice == "specify"
+#if $rng.rng_choice == "specify"
   --salt $rng.salt
 #end if
 --multiple
@@ -44,7 +44,7 @@
     </command>
     <inputs>
       <conditional name="motif">
-        <param name="choice" type="select" label="Motif">
+        <param name="motif_choice" type="select" label="Motif">
           <option value="plasma" selected="true">Find automatically using Plasma</option>
           <option value="iupac">Specify IUPAC motif</option>
         </param>
@@ -67,7 +67,7 @@
       </param>
 
       <conditional name="options">
-        <param name="choice" type="select" label="Options" >
+        <param name="options_choice" type="select" label="Options" >
           <option value="simple" selected="true">simple</option>
           <option value="advanced">advanced</option>
         </param>
@@ -77,13 +77,13 @@
           <repeat name="contrast" min="1" title="Contrast">
             <param name="simple_signal" type="data" format="fasta" label="Signal sequences (FASTA)"/>
             <conditional name="simple_control">
-              <param name="choice" type="select" label="Source for control sequences" >
+              <param name="control_choice" type="select" label="Source for control sequences" >
                 <option value="shuffle" selected="true">shuffle the signal sequences</option>
                 <option value="file">load from file</option>
               </param>
               <when value="shuffle"/>
               <when value="file">
-                <param name="file" type="data" format="fasta" label="Control sequences (FASTA)"/>
+                <param name="simple_control_file" type="data" format="fasta" label="Control sequences (FASTA)"/>
               </when>
             </conditional>
           </repeat>
@@ -110,7 +110,7 @@
       </conditional>
 
       <conditional name="rng">
-        <param name="choice" type="select" label="Random number generation" >
+        <param name="rng_choice" type="select" label="Random number generation" >
           <option value="random" selected="true">random</option>
           <option value="specify">specify salt</option>
         </param>
