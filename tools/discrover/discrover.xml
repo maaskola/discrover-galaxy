@@ -1,4 +1,4 @@
-  <tool id="discrover" name="Discrover">
+<tool id="discrover" name="Discrover">
     <description>Discriminative discovery of HMM motifs</description>
     <command>discrover
 #silent contrasts = []
@@ -43,91 +43,91 @@
 &amp;&amp; cp ${output_stem}.viterbi ${viterbi_outfile}
     </command>
     <inputs>
-      <conditional name="motif">
-        <param name="motif_choice" type="select" label="Seeds" help="You can either use Plasma to automatically discover seeds or manually specify a IUPAC regular expression as seed.">
-          <option value="plasma" selected="true">Find automatically using Plasma</option>
-          <option value="iupac">Specify IUPAC motif</option>
+        <conditional name="motif">
+            <param name="motif_choice" type="select" label="Seeds" help="You can either use Plasma to automatically discover seeds or manually specify a IUPAC regular expression as seed.">
+                <option value="plasma" selected="true">Find automatically using Plasma</option>
+                <option value="iupac">Specify IUPAC motif</option>
+            </param>
+            <when value="plasma">
+                <param name="length" type="text" value="8" label="Motif lengths">
+                    <validator type="regex" message="Comma-separated list of one or more length ranges, e.g. '8' or '5,8-9'">^(\d+(-\d+)?(,\d+(-\d+)?)*)+$</validator>
+                </param>
+
+                <param name="nseeds" type="integer" value="1" min="1" label="Number of seeds" help="For each length, the best N seeds will be found and a HMM will be trained for each."/>
+                <param name="wiggle" type="integer" value="0" min="0" label="Wiggle positions" help="For each found seed, consider variant seeds shifted up to this many positions up- and down-stream."/>
+            </when>
+            <when value="iupac">
+                <param name="iupac_string" type="text" label="IUPAC motif" help="Specify a motif using the IUPAC code for nucleic acids: A, C, G, T, U, M=AC, R=AG, W=AT, S=CG, Y=CT, K=GT, V=ACG, H=ACT, D=AGT, B=CGT, N=ACGT."/>
+            </when>
+        </conditional>
+
+        <param name="strandedness" type="select" label="Strandedness">
+            <option value="RNA" selected="true">RNA - ignore reverse complementary strand</option>
+            <option value="DNA">DNA - include reverse complementary strand</option>
         </param>
-        <when value="plasma">
-          <param name="length" type="text" value="8" label="Motif lengths">
-            <validator type="regex" message="Comma-separated list of one or more length ranges, e.g. '8' or '5,8-9'">^(\d+(-\d+)?(,\d+(-\d+)?)*)+$</validator>
-          </param>
 
-          <param name="nseeds" type="integer" value="1" min="1" label="Number of seeds" help="For each length, the best N seeds will be found and a HMM will be trained for each."/>
-          <param name="wiggle" type="integer" value="0" min="0" label="Wiggle positions" help="For each found seed, consider variant seeds shifted up to this many positions up- and down-stream."/>
-        </when>
-        <when value="iupac">
-          <param name="iupac_string" type="text" label="IUPAC motif" help="Specify a motif using the IUPAC code for nucleic acids: A, C, G, T, U, M=AC, R=AG, W=AT, S=CG, Y=CT, K=GT, V=ACG, H=ACT, D=AGT, B=CGT, N=ACGT."/>
-        </when>
-      </conditional>
+        <conditional name="options">
+            <param name="options_choice" type="select" label="Options" >
+                <option value="simple" selected="true">simple</option>
+                <option value="advanced">advanced</option>
+            </param>
+            <when value="simple">
+                <param name="score" type="hidden" value="mico"/>
+                <!-- <param name="multimode" type="hidden" value="true"/> -->
+                <repeat name="contrast" min="1" title="Contrast" help="You can specify one or more contrasts for which to find discriminative motifs.">
+                    <param name="simple_signal" type="data" format="fasta" label="Signal sequences (FASTA)"/>
+                    <conditional name="simple_control">
+                        <param name="control_choice" type="select" label="Source for control sequences" >
+                            <option value="shuffle" selected="true">shuffle the signal sequences</option>
+                            <option value="file">load from file</option>
+                        </param>
+                        <when value="shuffle"/>
+                        <when value="file">
+                            <param name="simple_control_file" type="data" format="fasta" label="Control sequences (FASTA)"/>
+                        </when>
+                    </conditional>
+                </repeat>
+            </when>
 
-      <param name="strandedness" type="select" label="Strandedness">
-        <option value="RNA" selected="true">RNA - ignore reverse complementary strand</option>
-        <option value="DNA">DNA - include reverse complementary strand</option>
-      </param>
+            <when value="advanced">
+                <repeat name="contrast" min="1" title="Contrast" help="You can specify one or more contrasts for which to find discriminative motifs.">
+                    <repeat name="set" min="2" title="Sequence set">
+                        <param name="file" type="data" format="fasta" label="Sequence file (FASTA)"/>
+                        <param name="shuffle" type="boolean" checked="false" label="Shuffle these sequences"/>
+                        <param name="is_control" type="boolean" checked="false" label="Treat as control sequences" help="Sequences selected as control are not used for learning of context parameters (background emissions and motif priors)."/>
+                    </repeat>
+                </repeat>
+                <param name="score" type="select" label="Score" >
+                    <option value="mico" selected="true">MICO</option>
+                    <option value="mmie">MMIE</option>
+                    <option value="mcc">MCC</option>
+                    <option value="dlogl">DLOGL</option>
+                    <option value="dfreq">DFREQ</option>
+                    <option value="bw">Baum-Welch</option>
+                </param>
+                <!-- <param name="multimode" type="boolean" label="Multiple motif mode" checked="true" hint="For this work you must specify multiple lengths and/or more than one seed!"/> -->
+            </when>
+        </conditional>
 
-      <conditional name="options">
-        <param name="options_choice" type="select" label="Options" >
-          <option value="simple" selected="true">simple</option>
-          <option value="advanced">advanced</option>
-        </param>
-        <when value="simple">
-          <param name="score" type="hidden" value="mico"/>
-          <!-- <param name="multimode" type="hidden" value="true"/> -->
-          <repeat name="contrast" min="1" title="Contrast" help="You can specify one or more contrasts for which to find discriminative motifs.">
-            <param name="simple_signal" type="data" format="fasta" label="Signal sequences (FASTA)"/>
-            <conditional name="simple_control">
-              <param name="control_choice" type="select" label="Source for control sequences" >
-                <option value="shuffle" selected="true">shuffle the signal sequences</option>
-                <option value="file">load from file</option>
-              </param>
-              <when value="shuffle"/>
-              <when value="file">
-                <param name="simple_control_file" type="data" format="fasta" label="Control sequences (FASTA)"/>
-              </when>
-            </conditional>
-          </repeat>
-        </when>
-
-        <when value="advanced">
-          <repeat name="contrast" min="1" title="Contrast" help="You can specify one or more contrasts for which to find discriminative motifs.">
-            <repeat name="set" min="2" title="Sequence set">
-              <param name="file" type="data" format="fasta" label="Sequence file (FASTA)"/>
-              <param name="shuffle" type="boolean" checked="false" label="Shuffle these sequences"/>
-              <param name="is_control" type="boolean" checked="false" label="Treat as control sequences" help="Sequences selected as control are not used for learning of context parameters (background emissions and motif priors)."/>
-            </repeat>
-          </repeat>
-          <param name="score" type="select" label="Score" >
-            <option value="mico" selected="true">MICO</option>
-            <option value="mmie">MMIE</option>
-            <option value="mcc">MCC</option>
-            <option value="dlogl">DLOGL</option>
-            <option value="dfreq">DFREQ</option>
-            <option value="bw">Baum-Welch</option>
-          </param>
-          <!-- <param name="multimode" type="boolean" label="Multiple motif mode" checked="true" hint="For this work you must specify multiple lengths and/or more than one seed!"/> -->
-        </when>
-      </conditional>
-
-      <conditional name="rng">
-        <param name="rng_choice" type="select" label="Random number generation" >
-          <option value="random" selected="true">random</option>
-          <option value="specify">specify salt</option>
-        </param>
-        <when value="random"/>
-        <when value="specify">
-          <param name="salt" type="integer" value="1" min="0" label="Salt for random number generation" help="You can use this for reproducible random number generation. This influences e.g. the generation of sequence shuffles (which can be used as control)."/>
-        </when>
-      </conditional>
+        <conditional name="rng">
+            <param name="rng_choice" type="select" label="Random number generation" >
+                <option value="random" selected="true">random</option>
+                <option value="specify">specify salt</option>
+            </param>
+            <when value="random"/>
+            <when value="specify">
+                <param name="salt" type="integer" value="1" min="0" label="Salt for random number generation" help="You can use this for reproducible random number generation. This influences e.g. the generation of sequence shuffles (which can be used as control)."/>
+            </when>
+        </conditional>
 
     </inputs>
     <outputs>
-      <data format="txt" name="summary_outfile" label="${tool.name} on ${on_string} (Summary)"/>
-      <data format="txt" name="hmm_outfile" label="${tool.name} on ${on_string} (HMM motif)"/>
-      <data format="tabular" name="table_outfile" label="${tool.name} on ${on_string} (Occurrence table)"/>
-      <data format="txt" name="viterbi_outfile" label="${tool.name} on ${on_string} (Viterbi decoding)"/>
-      <data format="txt" name="txt_outfile" label="${tool.name} on ${on_string} (Progress information)"/>
-      <data format="txt" name="time_outfile" label="${tool.name} on ${on_string} (Runtime information)"/>
+        <data format="txt" name="summary_outfile" label="${tool.name} on ${on_string} (Summary)"/>
+        <data format="txt" name="hmm_outfile" label="${tool.name} on ${on_string} (HMM motif)"/>
+        <data format="tabular" name="table_outfile" label="${tool.name} on ${on_string} (Occurrence table)"/>
+        <data format="txt" name="viterbi_outfile" label="${tool.name} on ${on_string} (Viterbi decoding)"/>
+        <data format="txt" name="txt_outfile" label="${tool.name} on ${on_string} (Progress information)"/>
+        <data format="txt" name="time_outfile" label="${tool.name} on ${on_string} (Runtime information)"/>
     </outputs>
     <help>
 
@@ -155,5 +155,5 @@
       * DFREQ: Difference of occurrence frequency (only binary contrasts)
       * Baum-Welch: Likelihood maximization (non-discriminative objective function)
 
-    </help>
+  </help>
   </tool>
