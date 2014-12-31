@@ -19,16 +19,16 @@
 #end for
 #silent output_stem = $txt_outfile.files_path + "*"
 #if $motif.motif_choice == "plasma"
-  -m motif:${motif.length}x${motif.nseeds}
+  --motif motif:${motif.length}x${motif.nseeds}
   --wiggle ${motif.wiggle}
   #silent output_stem = output_stem + ".accepted"
 #else
-  -m motif:${motif.iupac_string}
+  --motif motif:${motif.iupac_string}
 #end if
 --score motif:${"+".join(contrasts)}:${options.score}
--o ${txt_outfile.files_path}
+--output ${txt_outfile.files_path}
 #if str($strandedness) == "DNA"
-  -r
+  --revcomp
 #end if
 #if $rng.rng_choice == "specify"
   --salt $rng.salt
