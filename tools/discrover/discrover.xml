@@ -1,4 +1,4 @@
-<tool id="discrover" name="Discrover">
+<tool id="discrover" name="Discrover" version="1.0.0">
     <description>Discriminative discovery of HMM motifs</description>
     <command>discrover
 #silent contrasts = []
