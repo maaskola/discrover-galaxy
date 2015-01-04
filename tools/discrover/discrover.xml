@@ -57,7 +57,9 @@
                 <param name="wiggle" type="integer" value="0" min="0" label="Wiggle positions" help="For each found seed, consider variant seeds shifted up to this many positions up- and down-stream."/>
             </when>
             <when value="iupac">
-                <param name="iupac_string" type="text" label="IUPAC motif" help="Specify a motif using the IUPAC code for nucleic acids: A, C, G, T, U, M=AC, R=AG, W=AT, S=CG, Y=CT, K=GT, V=ACG, H=ACT, D=AGT, B=CGT, N=ACGT."/>
+                <param name="iupac_string" type="text" label="IUPAC motif" help="Specify a motif using the IUPAC code for nucleic acids: A, C, G, T, U, M=AC, R=AG, W=AT, S=CG, Y=CT, K=GT, V=ACG, H=ACT, D=AGT, B=CGT, N=ACGT.">
+                    <validator type="regex" message="Must consist only of letters 'ACGTUMRWSYKVHDBN'.">^[ACGTUMRWSYKVHDBNacgtumrwsykvhdbn]+$</validator>
+                </param>
             </when>
         </conditional>
 
