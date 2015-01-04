@@ -30,6 +30,9 @@
 #if str($strandedness) == "DNA"
   --revcomp
 #end if
+#if str($threads) != "" and int(str($threads)) > 0
+  --threads $threads
+#end if
 #if $rng.rng_choice == "specify"
   --salt $rng.salt
 #end if
@@ -122,6 +125,7 @@
             </when>
         </conditional>
 
+        <param name="threads" type="hidden" default="0"/>
     </inputs>
 
     <outputs>
