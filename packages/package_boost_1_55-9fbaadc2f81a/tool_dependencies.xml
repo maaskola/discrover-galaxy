@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <tool_dependency>
     <package name="bzlib" version="1.0.6">
-        <repository changeset_revision="e89ba6f88ab2" name="package_bzlib_1_0" owner="iuc" prior_installation_required="True" toolshed="http://testtoolshed.g2.bx.psu.edu" />
+        <repository name="package_bzlib_1_0" owner="iuc" prior_installation_required="True" toolshed="http://localhost:9009" />
     </package>
     <package name="boost" version="1.55.0">
         <install version="1.0">
@@ -10,7 +10,7 @@
 
                 <!-- populate the environment variables from the dependend repos -->
                 <action type="set_environment_for_install">
-                    <repository changeset_revision="e89ba6f88ab2" name="package_bzlib_1_0" owner="iuc" toolshed="http://testtoolshed.g2.bx.psu.edu">
+                    <repository name="package_bzlib_1_0" owner="iuc" toolshed="http://localhost:9009">
                         <package name="bzlib" version="1.0.6" />
                     </repository>
                 </action>
