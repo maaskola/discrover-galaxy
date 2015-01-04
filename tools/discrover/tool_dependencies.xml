@@ -3,8 +3,8 @@
     <package name="cairo" version="1.12.14">
       <repository name="package_cairo_1_12_14" owner="maaskola" prior_installation_required="True" toolshed="http://localhost:9009" />
     </package>
-    <package name="boost" version="1.53.0">
-        <repository name="package_boost_1_53" owner="maaskola" prior_installation_required="True" />
+    <package name="boost" version="1.55.0">
+        <repository name="package_boost_1_55" owner="maaskola" prior_installation_required="True" />
     </package>
     <package name="discrover" version="1.4.0">
         <repository name="package_discrover_1_4_0" owner="maaskola" prior_installation_required="True" />

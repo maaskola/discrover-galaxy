@@ -3,7 +3,7 @@
     <requirements>
         <requirement type="package" version="1.4.0">discrover</requirement>
         <requirement type="package" version="1.12.14">cairo</requirement>
-        <requirement type="package" version="1.53.0">boost</requirement>
+        <requirement type="package" version="1.55.0">boost</requirement>
     </requirements>
     <command>discrover
 #silent contrasts = []
