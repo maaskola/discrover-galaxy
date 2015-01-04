@@ -1,5 +1,10 @@
 <tool id="discrover" name="Discrover" version="1.0.0">
     <description>Discriminative discovery of HMM motifs</description>
+    <requirements>
+        <requirement type="package" version="1.4.0">discrover</requirement>
+        <requirement type="package" version="1.12.14">cairo</requirement>
+        <requirement type="package" version="1.53.0">boost</requirement>
+    </requirements>
     <command>discrover
 #silent contrasts = []
 #silent theseeds = ""
