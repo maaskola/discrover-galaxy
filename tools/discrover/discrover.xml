@@ -69,7 +69,7 @@
         </param>
 
         <conditional name="options">
-            <param name="options_choice" type="select" label="Options" >
+            <param name="options_choice" type="select" label="Contrast specification" >
                 <option value="simple" selected="true">simple</option>
                 <option value="advanced">advanced</option>
             </param>
