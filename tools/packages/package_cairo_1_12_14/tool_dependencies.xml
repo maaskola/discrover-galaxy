@@ -1,26 +1,26 @@
 <?xml version="1.0"?>
 <tool_dependency>
   <package name="pixman" version="0.32.4">
-      <repository changeset_revision="bcf53d429118" name="package_pixman_0_32_4" owner="devteam" prior_installation_required="True" toolshed="http://localhost:9009" />
+      <repository name="package_pixman_0_32_4" owner="maaskola" prior_installation_required="True" toolshed="http://localhost:9009" />
     </package>
     <package name="libpng" version="1.6.7">
-      <repository changeset_revision="833849e0ddfc" name="package_libpng_1_6_7" owner="devteam" prior_installation_required="True" toolshed="http://localhost:9009" />
+      <repository name="package_libpng_1_6_7" owner="maaskola" prior_installation_required="True" toolshed="http://localhost:9009" />
     </package>
     <package name="freetype" version="2.5.2">
-      <repository changeset_revision="34ebf47e4941" name="package_freetype_2_5_2" owner="devteam" prior_installation_required="True" toolshed="http://localhost:9009" />
+      <repository name="package_freetype_2_5_2" owner="maaskola" prior_installation_required="True" toolshed="http://localhost:9009" />
     </package>
     <package name="cairo" version="1.12.14">
       <install version="1.0">
           <actions>
               <action type="download_by_url">http://depot.galaxyproject.org/package/source/cairo/cairo-1.12.14.tar.bz2</action>
                 <action type="set_environment_for_install">
-                  <repository changeset_revision="bcf53d429118" name="package_pixman_0_32_4" owner="devteam" prior_installation_required="True" toolshed="http://localhost:9009">
+                  <repository name="package_pixman_0_32_4" owner="maaskola" prior_installation_required="True" toolshed="http://localhost:9009">
                       <package name="pixman" version="0.32.4" />
                     </repository>
-                    <repository changeset_revision="833849e0ddfc" name="package_libpng_1_6_7" owner="devteam" prior_installation_required="True" toolshed="http://localhost:9009">
+                    <repository name="package_libpng_1_6_7" owner="maaskola" prior_installation_required="True" toolshed="http://localhost:9009">
                       <package name="libpng" version="1.6.7" />
                     </repository>
-                    <repository changeset_revision="34ebf47e4941" name="package_freetype_2_5_2" owner="devteam" prior_installation_required="True" toolshed="http://localhost:9009">
+                    <repository name="package_freetype_2_5_2" owner="maaskola" prior_installation_required="True" toolshed="http://localhost:9009">
                       <package name="freetype" version="2.5.2" />
                     </repository>
                 </action>
