@@ -49,6 +49,15 @@
 &amp;&amp; cp ${output_stem}.summary ${summary_outfile}
 &amp;&amp; cp ${output_stem}.table ${table_outfile}
 &amp;&amp; cp ${output_stem}.viterbi ${viterbi_outfile}
+#if str($strandedness) == "RNA"
+&amp;&amp; cp ${output_stem}.pdf ${pdf_logo_rna}
+&amp;&amp; cp ${output_stem}.png ${png_logo_rna}
+#else
+&amp;&amp; cp ${output_stem}.forward.pdf ${pdf_logo_forward}
+&amp;&amp; cp ${output_stem}.forward.png ${png_logo_forward}
+&amp;&amp; cp ${output_stem}.revcomp.pdf ${pdf_logo_revcomp}
+&amp;&amp; cp ${output_stem}.revcomp.png ${png_logo_revcomp}
+#end if
     </command>
     <inputs>
         <conditional name="motif">
@@ -140,6 +149,24 @@
         <data format="txt" name="viterbi_outfile" label="${tool.name} on ${on_string} (Viterbi decoding)"/>
         <data format="txt" name="txt_outfile" label="${tool.name} on ${on_string} (Progress information)"/>
         <data format="txt" name="time_outfile" label="${tool.name} on ${on_string} (Runtime information)"/>
+        <data format="pdf" name="pdf_logo_rna" label="${tool.name} on ${on_string} (RNA sequence logo, PDF)">
+            <filter>strandedness == "RNA"</filter>
+        </data>
+        <data format="png" name="png_logo_rna" label="${tool.name} on ${on_string} (RNA sequence logo, PNG)">
+            <filter>strandedness == "RNA"</filter>
+        </data>
+        <data format="pdf" name="pdf_logo_forward" label="${tool.name} on ${on_string} (DNA forward sequence logo, PDF)">
+            <filter>strandedness == "DNA"</filter>
+        </data>
+        <data format="png" name="png_logo_forward" label="${tool.name} on ${on_string} (DNA forward sequence logo, PNG)">
+            <filter>strandedness == "DNA"</filter>
+        </data>
+        <data format="pdf" name="pdf_logo_revcomp" label="${tool.name} on ${on_string} (DNA reverse-complementary sequence logo, PDF)">
+            <filter>strandedness == "DNA"</filter>
+        </data>
+        <data format="png" name="png_logo_revcomp" label="${tool.name} on ${on_string} (DNA reverse-complementary sequence logo, PNG)">
+            <filter>strandedness == "DNA"</filter>
+        </data>
     </outputs>
     <help>
 
