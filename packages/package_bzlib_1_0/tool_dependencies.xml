@@ -1,4 +1,4 @@
- <tool_dependency>
+<tool_dependency>
     <package name="bzlib" version="1.0.6">
         <install version="1.0">
             <actions>

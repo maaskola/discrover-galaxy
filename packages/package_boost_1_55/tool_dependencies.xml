@@ -29,9 +29,9 @@
             </actions>
         </install>
         <readme>
-        Compiling boost requires a C++ compiler (typically gcc).
-        You can access the boost root directory through the $BOOST_ROOT_DIR system variable. All modules will be build.
-        Development of that wrapper happens in https://github.com/bgruening/galaxytools/.
+            Compiling boost requires a C++ compiler (typically gcc).
+            You can access the boost root directory through the $BOOST_ROOT_DIR system variable. All modules will be build.
+            Development of that wrapper happens in https://github.com/bgruening/galaxytools/.
         </readme>
     </package>
 </tool_dependency>
