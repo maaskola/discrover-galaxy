@@ -6,7 +6,7 @@
     <package name="boost" version="1.55.0">
         <repository name="package_boost_1_55" owner="maaskola" prior_installation_required="True" />
     </package>
-    <package name="discrover" version="1.4.1">
-        <repository name="package_discrover_1_4_1" owner="maaskola" prior_installation_required="True" />
+    <package name="discrover" version="1.5.0">
+        <repository name="package_discrover_1.5.0" owner="maaskola" prior_installation_required="True" />
     </package>
 </tool_dependency>
