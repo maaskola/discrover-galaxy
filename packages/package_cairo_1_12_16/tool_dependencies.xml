@@ -9,10 +9,11 @@
     <package name="freetype" version="2.5.2">
         <repository name="package_freetype_2_5_2" owner="maaskola" prior_installation_required="True" toolshed="http://localhost:9009" />
     </package>
-    <package name="cairo" version="1.12.14">
+    <package name="cairo" version="1.12.16">
         <install version="1.0">
             <actions>
-                <action type="download_by_url">http://depot.galaxyproject.org/package/source/cairo/cairo-1.12.14.tar.bz2</action>
+                <action type="download_by_url">http://cairographics.org/releases/cairo-1.12.16.tar.xz</action>
+                <!-- <action type="download_by_url">http://depot.galaxyproject.org/package/source/cairo/cairo-1.12.16.tar.bz2</action> -->
                 <action type="set_environment_for_install">
                     <repository name="package_pixman_0_32_4" owner="maaskola" prior_installation_required="True" toolshed="http://localhost:9009">
                         <package name="pixman" version="0.32.4" />
@@ -24,6 +25,10 @@
                         <package name="freetype" version="2.5.2" />
                     </repository>
                 </action>
+                <!--
+                    export
+                    export LD_LIBRARY_PATH="$PIXMAN_LIB_PATH:$LIBPNG_ROOT/lib:$FREETYPE_LIB_PATH:$LD_LIBRARY_PATH" &amp;&amp; \
+                -->
                 <action type="shell_command">
                     export LDFLAGS="-Wl,-rpath,$PIXMAN_LIB_PATH -Wl,-rpath,$LIBPNG_ROOT/lib -Wl,-rpath,$FREETYPE_LIB_PATH" &amp;&amp; \
                     ./configure --prefix=$INSTALL_DIR \
@@ -33,6 +38,10 @@
                       --enable-xcb=no \
                       --enable-xlib-xrender=no
                 </action>
+                <!--
+                <action type="shell_command">export LD_LIBRARY_PATH="$PIXMAN_LIB_PATH:$LIBPNG_ROOT/lib:$FREETYPE_LIB_PATH:$LD_LIBRARY_PATH" &amp;&amp; make -j 1</action>
+                <action type="shell_command">export LD_LIBRARY_PATH="$PIXMAN_LIB_PATH:$LIBPNG_ROOT/lib:$FREETYPE_LIB_PATH:$LD_LIBRARY_PATH" &amp;&amp; make install</action>
+                -->
                 <action type="make_install" />
                 <!-- Create an empty cairo-xlib.h file, because R's configure script explicitly includes it even if X is disabled. -->
                 <action type="shell_command">touch $INSTALL_DIR/include/cairo/cairo-xlib.h</action>

@@ -1,7 +1,7 @@
 <tool id="discrover" name="Discrover" version="1.0.0">
     <description>Discriminative discovery of HMM motifs</description>
     <requirements>
-        <requirement type="package" version="1.12.14">cairo</requirement>
+        <requirement type="package" version="1.12.16">cairo</requirement>
         <requirement type="package" version="1.55.0">boost</requirement>
         <requirement type="package" version="1.5.0">discrover</requirement>
     </requirements>
