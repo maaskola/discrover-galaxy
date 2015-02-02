@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <tool_dependency>
-    <package name="cairo" version="1.12.16">
-        <repository name="package_cairo_1_12_16" owner="maaskola" prior_installation_required="True" toolshed="http://localhost:9009" />
+    <package name="cairo" version="1.12.14">
+        <repository name="package_cairo_1_12_14" owner="maaskola" prior_installation_required="True" toolshed="http://localhost:9009" />
     </package>
     <package name="boost" version="1.55.0">
         <repository name="package_boost_1_55" owner="maaskola" prior_installation_required="True" toolshed="http://localhost:9009" />
@@ -19,8 +19,8 @@
 
                 <!-- populate the environment variables from the dependent repositories -->
                 <action type="set_environment_for_install">
-                    <repository name="package_cairo_1_12_16" owner="maaskola" prior_installation_required="True" toolshed="http://localhost:9009">
-                        <package name="cairo" version="1.12.16" />
+                    <repository name="package_cairo_1_12_14" owner="maaskola" prior_installation_required="True" toolshed="http://localhost:9009">
+                        <package name="cairo" version="1.12.14" />
                     </repository>
                     <repository name="package_boost_1_55" owner="maaskola" prior_installation_required="True" toolshed="http://localhost:9009">
                         <package name="boost" version="1.55.0" />
