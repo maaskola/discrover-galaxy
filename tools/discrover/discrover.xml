@@ -168,6 +168,34 @@
             <filter>strandedness == "DNA"</filter>
         </data>
     </outputs>
+
+    <tests>
+        <test>
+            <param name="motif_choice" value="plasma"/>
+            <param name="length" value="8"/>
+            <param name="nseeds" value="1"/>
+            <param name="wiggle" value="0"/>
+            <param name="strandedness" value="RNA"/>
+            <param name="options_choice" value="simple"/>
+            <param name="score" value="mico"/>
+            <param name="simple_signal" value="p1.0_kl16.signal.fa" ftype="fasta"/>
+            <param name="control_choice" value="file"/>
+            <param name="simple_control_file" value="p1.0_kl16.control.fa" ftype="fasta"/>
+            <param name="rng_choice" value="specify"/>
+            <param name="salt" value="1"/>
+            <param name="threads" value="1"/>
+
+            <output name="summary_outfile">
+                <assert_contents>
+                    <has_line_matching expression="motif\s+ggattcgt\s+15.9919"/>
+                    <has_line_matching expression=".+\s+84.00\s+16.00\s+84.00"/>
+                    <has_line_matching expression=".+\s+0.00\s+100.00\s+0.00"/>
+                    <has_line line="Viterbi decoded site counts - motif:ggattcgt Discriminatory mutual information = 0.617421 bit per sequence"/>
+                </assert_contents>
+            </output>
+        </test>
+    </tests>
+
     <help>
 
       **Discrover**
